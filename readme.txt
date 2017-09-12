@@ -5,10 +5,6 @@
  * 
  ******************************************************************************/
 
-Which partner is submitting the program files?
-
-Traveling Salesperson Problem
-
 Hours to complete assignment (optional):
 
 

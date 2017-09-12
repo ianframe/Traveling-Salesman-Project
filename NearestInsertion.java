@@ -1,26 +1,31 @@
- 
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException; 
 
 /*************************************************************************
  *  YOU DO NOT NEED TO MODIFY THIS FILE
  *
- *  Compilation:  javac NearestInsertion.java
- *  Execution:    java NearestInsertion < file.txt
- *  Dependencies: Tour.java Point.java StdIn.java StdDraw.java
+ *  Dependencies: java.util.Scanner StdDraw.java
  *
  *  Run nearest neighbor insertion heuristic for traveling
- *  salesperson problemand plot results.
+ *  salesperson problemand plot results. Pass the name of the text file
+ *  located inside ./input as a command line argument.
  *
- *  % java NearestInsertion < tsp1000.txt
+ *  % java NearestInsertion tsp1000.txt
  *
  *************************************************************************/
 
 public class NearestInsertion {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException{
+
+        File f = new File("./input/" + args[0]);
+        Scanner s = new Scanner(f);
 
         // get dimensions
-        int width = StdIn.readInt();
-        int height = StdIn.readInt();
+        String[] dimensions = s.nextLine().split(" ");
+        int width = Integer.parseInt(dimensions[0]);
+        int height = Integer.parseInt(dimensions[1]);
         int border = 20;
         StdDraw.setCanvasSize(width, height + border);
         StdDraw.setXscale(0, width);
@@ -31,13 +36,14 @@ public class NearestInsertion {
 
         // run smallest insertion heuristic
         Tour tour = new Tour();
-        while (!StdIn.isEmpty()) {
-            double x = StdIn.readDouble();
-            double y = StdIn.readDouble();
+        s.reset();
+        while (s.hasNextDouble()) {
+            double x = Double.parseDouble(s.next());
+            double y = Double.parseDouble(s.next());
             Point p = new Point(x, y);
             tour.insertNearest(p);
 
-            // uncomment the 4 lines below to animate
+            // uncomment the lines below to animate
             // StdDraw.clear();
             // tour.draw();
             // StdDraw.textLeft(20, 0, "length = " + tour.length());
